@@ -28,31 +28,34 @@ celdas.forEach((celda, index) => {
 });
 
 function moverJugador(index) {
-    tablero[index] = jugador;
-    celdas[index].innerText = jugador;
-    celdas[index].classList.add("selected");
-    if (verificarGanador(jugador)) {
-        detenerCronometro();
-        guardarTiempo();
-        mensaje.innerText = "¡Ganaste!";
-        juegoTerminado = true;
-        turnoIndicador.innerText = "Juego terminado";
-        turnoIndicador.style.color = "black";
-    } else if (!tablero.includes("")) {
-        mensaje.innerText = "Empate";
-        juegoTerminado = true;
-        turnoIndicador.innerText = "Juego terminado";
-        turnoIndicador.style.color = "black"; 
-    } else {
-        turnoIndicador.innerText = "Turno: Computadora";
-        turnoIndicador.style.color = "red";
-        turnoComputadora = true;
-        setTimeout(moverComputadora, 3000);
+    if (tablero[index] === "" && !juegoTerminado && !turnoComputadora) { // Verifica que sea el turno del jugador
+        tablero[index] = jugador;
+        celdas[index].innerText = jugador;
+        celdas[index].classList.add("selected");
+
+        if (verificarGanador(jugador)) {
+            detenerCronometro();
+            guardarTiempo();
+            mensaje.innerText = "¡Ganaste!";
+            juegoTerminado = true;
+            turnoIndicador.innerText = "Juego terminado";
+            turnoIndicador.style.color = "black";
+        } else if (!tablero.includes("")) {
+            mensaje.innerText = "Empate";
+            juegoTerminado = true;
+            turnoIndicador.innerText = "Juego terminado";
+            turnoIndicador.style.color = "black";
+        } else {
+            turnoIndicador.innerText = "Turno: Computadora";
+            turnoIndicador.style.color = "red";
+            turnoComputadora = true;
+            setTimeout(moverComputadora, 3000); // Espera 3 segundos antes del movimiento de la computadora
+        }
     }
 }
 
 function moverComputadora() {
-    if (juegoTerminado) return;
+    if (juegoTerminado) return; // Verifica que el juego no haya terminado
 
     let movimientosDisponibles = tablero.map((val, idx) => val === "" ? idx : null).filter(val => val !== null);
     let movimientoAleatorio = movimientosDisponibles[Math.floor(Math.random() * movimientosDisponibles.length)];
@@ -70,7 +73,8 @@ function moverComputadora() {
         turnoIndicador.innerText = "Turno: Jugador X";
         turnoIndicador.style.color = "green";
     }
-    turnoComputadora = false;
+
+    turnoComputadora = false; // Restablece el turno para el jugador después de la jugada de la computadora
 }
 
 function verificarGanador(jugadorActual) {
