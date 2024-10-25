@@ -18,44 +18,37 @@ celdas.forEach((celda, index) => {
         }
         if (tablero[index] === "" && !juegoTerminado && !turnoComputadora) {
             moverJugador(index);
-            if (!verificarGanador(jugador) && tablero.includes("")) {
-                turnoIndicador.innerText = "Turno: Computadora";
-                turnoComputadora = true; 
-                setTimeout(moverComputadora, 3000);
-            }
         }
     });
 });
 
 function moverJugador(index) {
-    if (tablero[index] === "" && !juegoTerminado && !turnoComputadora) { // Verifica que sea el turno del jugador
-        tablero[index] = jugador;
-        celdas[index].innerText = jugador;
-        celdas[index].classList.add("selected");
+    tablero[index] = jugador;
+    celdas[index].innerText = jugador;
+    celdas[index].classList.add("selected");
 
-        if (verificarGanador(jugador)) {
-            detenerCronometro();
-            guardarTiempo();
-            mensaje.innerText = "¡Ganaste!";
-            juegoTerminado = true;
-            turnoIndicador.innerText = "Juego terminado";
-            turnoIndicador.style.color = "black";
-        } else if (!tablero.includes("")) {
-            mensaje.innerText = "Empate";
-            juegoTerminado = true;
-            turnoIndicador.innerText = "Juego terminado";
-            turnoIndicador.style.color = "black";
-        } else {
-            turnoIndicador.innerText = "Turno: Computadora";
-            turnoIndicador.style.color = "red";
-            turnoComputadora = true;
-            setTimeout(moverComputadora, 3000); // Espera 3 segundos antes del movimiento de la computadora
-        }
+    if (verificarGanador(jugador)) {
+        detenerCronometro();
+        guardarTiempo();
+        mensaje.innerText = "¡Ganaste!";
+        juegoTerminado = true;
+        turnoIndicador.innerText = "Juego terminado";
+        turnoIndicador.style.color = "black";
+    } else if (!tablero.includes("")) {
+        mensaje.innerText = "Empate";
+        juegoTerminado = true;
+        turnoIndicador.innerText = "Juego terminado";
+        turnoIndicador.style.color = "black";
+    } else {
+        turnoComputadora = true;
+        turnoIndicador.innerText = "Turno: Computadora";
+        turnoIndicador.style.color = "red";
+        setTimeout(moverComputadora, 3000);
     }
 }
 
 function moverComputadora() {
-    if (juegoTerminado) return; // Verifica que el juego no haya terminado
+    if (juegoTerminado) return;
 
     let movimientosDisponibles = tablero.map((val, idx) => val === "" ? idx : null).filter(val => val !== null);
     let movimientoAleatorio = movimientosDisponibles[Math.floor(Math.random() * movimientosDisponibles.length)];
@@ -74,7 +67,7 @@ function moverComputadora() {
         turnoIndicador.style.color = "green";
     }
 
-    turnoComputadora = false; // Restablece el turno para el jugador después de la jugada de la computadora
+    turnoComputadora = false; // Permite al jugador hacer clic de nuevo
 }
 
 function verificarGanador(jugadorActual) {
@@ -117,15 +110,15 @@ function mostrarMejoresTiempos() {
     let mejoresTiempos = JSON.parse(localStorage.getItem("mejoresTiempos")) || [];
     tablaMejoresTiempos.innerHTML = `
         <tr>
-            <th>👤 Nombre</th> <!-- Emoticono de usuario en la cabecera de nombres -->
-            <th>⏱️ Tiempo (s)</th> <!-- Emoticono de reloj para tiempo -->
-            <th>📅 Fecha y Hora</th> <!-- Emoticono de calendario para fecha y hora -->
+            <th>👤 Nombre</th>
+            <th>⏱️ Tiempo (s)</th>
+            <th>📅 Fecha y Hora</th>
         </tr>
     ` + mejoresTiempos.map(registro => `
         <tr>
-            <td>👤 ${registro.nombre}</td> <!-- Emoticono de usuario solo en la columna de nombre -->
-            <td>⏱️ ${registro.tiempo}</td> <!-- Emoticono solo en tiempo -->
-            <td>📅 ${registro.fecha}</td> <!-- Emoticono solo en fecha -->
+            <td>👤 ${registro.nombre}</td>
+            <td>⏱️ ${registro.tiempo}</td>
+            <td>📅 ${registro.fecha}</td>
         </tr>
     `).join("");
 }
