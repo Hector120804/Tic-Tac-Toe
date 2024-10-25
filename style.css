@@ -1,0 +1,113 @@
+body {
+    background: linear-gradient(45deg, #ff6b6b, #f37740, #6cc644, #3498db);
+    background-size: 400% 400%;
+    font-family: 'Arial', sans-serif;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    animation: fondoFluido 10s ease infinite; /* Animación del fondo */
+}
+
+@keyframes fondoFluido {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #fff;
+    margin-bottom: 25px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#turno-indicador {
+    font-size: 1.5em;
+    color: green;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.cells {
+    margin: 30px 0;
+    width: 300px;
+    height: 300px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.cells span {
+    font-size: 80px;
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+}
+
+.cells span:hover {
+    background-color: #555;
+    transform: scale(1.1);
+}
+
+button {
+    margin-top: 20px;
+    padding: 10px 25px;
+    font-size: 16px;
+    background-color: #ff6b6b;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #ff4040;
+    transform: scale(1.05);
+}
+
+h2 {
+    margin-top: 30px;
+    font-size: 1.8em;
+    color: #fff;
+    font-family: 'Roboto', sans-serif;
+}
+
+#tablaMejoresTiempos {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 80%;
+    max-width: 500px;
+    background-color: #4d4d4d;
+    color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+#tablaMejoresTiempos th, #tablaMejoresTiempos td {
+    padding: 12px;
+    border-bottom: 1px solid #333;
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+}
+
+#tablaMejoresTiempos th {
+    background-color: #333;
+    font-weight: bold;
+}
